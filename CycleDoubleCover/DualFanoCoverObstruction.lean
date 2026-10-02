@@ -49,23 +49,24 @@ private noncomputable def kernelBasis : Basis (Fin 4) (ZMod 2)
     (LinearMap.ker fanoMatrix.mulVecLin) :=
   Basis.mk kernelVector_independent kernelVector_spans
 
-private def dualColumns (p : FanoPoint) (i : Fin 4) : ZMod 2 := kernelRow i p
+/-- An explicit four-row binary representation of the dual Fano matroid. -/
+def dualFanoColumns (p : FanoPoint) (i : Fin 4) : ZMod 2 := kernelRow i p
 
-private theorem dualColumns_represents : Represents dualFano (ZMod 2) dualColumns := by
+theorem dualFanoColumns_represents : Represents dualFano (ZMod 2) dualFanoColumns := by
   have h := kernelBasis_represents_dual (fun p : FanoPoint => p.val) kernelBasis
-  have hcolumns : (fun p i => (kernelBasis i).val p) = dualColumns := by
+  have hcolumns : (fun p i => (kernelBasis i).val p) = dualFanoColumns := by
     funext p i
-    simp only [kernelBasis, Basis.mk_apply, kernelVector, dualColumns]
+    simp only [kernelBasis, Basis.mk_apply, kernelVector, dualFanoColumns]
   exact hcolumns ▸ h
 
 private theorem dual_zero_sum_card : ∀ C : Finset FanoPoint,
-    (∑ p ∈ C, dualColumns p) = 0 → C.card = 0 ∨ C.card = 4 := by
+    (∑ p ∈ C, dualFanoColumns p) = 0 → C.card = 0 ∨ C.card = 4 := by
   decide +kernel
 
 /-- Every nonempty cycle of the genuine dual Fano matroid contains four elements. -/
 theorem dualFano_isCycle_card_zero_or_four {C : Finset FanoPoint}
     (hC : IsCycle dualFano (C : Set FanoPoint)) : C.card = 0 ∨ C.card = 4 :=
-  dual_zero_sum_card C ((dualColumns_represents.isCycle_iff_sum_eq_zero C).mp hC).2
+  dual_zero_sum_card C ((dualFanoColumns_represents.isCycle_iff_sum_eq_zero C).mp hC).2
 
 /-- The dual Fano matroid admits no cycle double cover. Every member has
 length zero or four, whereas double coverage of its seven elements has total length fourteen. -/

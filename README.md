@@ -4,7 +4,7 @@ A Lean 4 formalization of the definitions and theorems in `paper.pdf`, using mat
 
 The main cycle double cover theorem (Theorem 1), the eight-layer bound (Theorem 18), and the binary-flow seven-member fourfold cover (Theorem 23) have Lean-checked declarations for the project's finite multigraph definitions, including loops and disconnected graphs. The main CDC declarations are `MultiGraph.Bridgeless.has_cycle_double_cover` in `CycleDoubleCover/MainReduction.lean` and the universally quantified `Paper.cycleDoubleCoverStatement`. [The coverage inventory](docs/PaperCoverage.md) records exact proof status, authorized corrections and the distinction between kernel checking and independent mathematical review.
 
-The user updated the scope: proving CDC is sufficient, and additional proof work must stop. All additional proof tasks have stopped. Unproved paper statements remain recorded in the coverage inventory; the project does not claim to have completed every paper statement. Conjectures are defined as propositions and are not asserted as axioms.
+The user resumed the full-paper formalization after the earlier pause. Work on the remaining numbered and unnumbered statements is active again. Unproved paper statements remain recorded in the coverage inventory; the project does not claim to have completed every paper statement. Conjectures are defined as propositions and are not asserted as axioms.
 
 ## Setup
 

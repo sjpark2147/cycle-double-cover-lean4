@@ -1,4 +1,5 @@
 import CycleDoubleCover.SixFlowSplitting
+import CycleDoubleCover.SixFlowTernary
 import CycleDoubleCover.UnitCirculations
 import Mathlib.Algebra.BigOperators.Fin
 import Mathlib.Data.Fin.Tuple.Basic
@@ -111,5 +112,16 @@ theorem IsNowhereZeroFlow.exists_integer_sixFlow_support_profile [DecidableEq E]
   · intro e
     rw [append_cycleLayer_count C D e, hCcount, hDcount]
     exact flowHalf_support_count f g hparity hgunit hgsupport (hf.2 e)
+
+/-- An explicit integer six-flow constructs an actual nowhere-zero ternary
+two-coordinate flow. Its unit second coordinate retains the original parity. -/
+theorem IsNowhereZeroFlow.exists_ternarySixFlow {f : E → ℤ}
+    (hf : G.IsNowhereZeroFlow f) (hloop : G.Loopless) (hbound : ∀ e, |f e| < 6) :
+    ∃ g : E → ℤ, G.IsFlow g ∧ (∀ e, |g e| ≤ 1) ∧
+      (∀ e, g e ≠ 0 ↔ Odd (f e)) ∧
+      G.IsNowhereZeroFlow (ternarySixFlow f g) := by
+  obtain ⟨g, hg, hgunit, hsupport, _⟩ := hf.1.exists_unit_odd_correction G hloop
+  exact ⟨g, hg, hgunit, hsupport, hf.1.ternarySixFlow G hg,
+    ternarySixFlow_ne_zero f g hf.2 hbound hgunit hsupport⟩
 
 end CycleDoubleCover.MultiGraph

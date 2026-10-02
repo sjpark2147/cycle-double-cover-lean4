@@ -147,3 +147,14 @@ theorem Bridgeless.has_cycle_double_cover (hG : G.Bridgeless) : G.HasCycleDouble
   (hG.has_eight_cycle_double_cover G).hasCycleDoubleCover G
 
 end CycleDoubleCover.MultiGraph
+
+
+
+
+
+
+
+
+
+
+

@@ -83,7 +83,21 @@ theorem rationalDivergence_add_smul (a b : E → ℚ) (t : ℚ) (v : V) :
   apply Finset.sum_congr rfl
   intro e _
   by_cases hs : G.source e = v <;> by_cases ht : G.target e = v <;>
-    simp [hs, ht] <;> ring
+    simp [hs, ht]
+  all_goals ring
+
+omit [Fintype V] [DecidableEq E] in
+theorem rationalDivergence_smul (a : E → ℚ) (t : ℚ) (v : V) :
+    G.rationalDivergence (fun e => t * a e) v = t * G.rationalDivergence a v := by
+  simpa only [zero_add, rationalDivergence, ite_self, sub_self,
+    Finset.sum_const_zero] using G.rationalDivergence_add_smul (fun _ => 0) a t v
+
+omit [Fintype V] [DecidableEq E] in
+theorem rationalDivergence_intCast (f : E → ℤ) (v : V) :
+    G.rationalDivergence (fun e => (f e : ℚ)) v =
+      ((∑ e, ((if G.source e = v then f e else 0) -
+        (if G.target e = v then f e else 0)) : ℤ) : ℚ) := by
+  simp only [rationalDivergence, Int.cast_sum, Int.cast_sub, apply_ite, Int.cast_zero]
 
 omit [Fintype V] [DecidableEq E] in
 /-- Push along a genuine unit cycle circulation until an edge reaches an

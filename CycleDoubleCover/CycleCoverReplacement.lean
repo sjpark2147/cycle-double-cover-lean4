@@ -34,12 +34,12 @@ theorem cycle_double_cover_other_member_unique {m : ℕ} (C : Fin m → Finset E
 omit [Fintype E] in
 /-- Replace a chosen finite set of members by a verified cycle family
 with precisely the same edge multiplicities. -/
-theorem exists_replacement_individual_cycle_cover {m : ℕ} (C : Fin m → Finset E)
+theorem exists_replacement_individual_cycle_double_cover {m : ℕ} (C : Fin m → Finset E)
     (hC : ∀ i, G.IsCycle (C i))
-    (hcount : ∀ e, (Finset.univ.filter fun i => e ∈ C i).card = 2)
     (S : Finset (Fin m)) (D : J → Finset E) (hD : ∀ j, G.IsCycle (D j))
-    (hreplace : ∀ e, (Finset.univ.filter fun j => e ∈ D j).card =
-      (S.filter fun i => e ∈ C i).card) :
+    (hbalance : ∀ e, (Finset.univ.filter fun i => e ∈ C i).card +
+      (Finset.univ.filter fun j => e ∈ D j).card =
+        2 + (S.filter fun i => e ∈ C i).card) :
     ∃ n ≤ m - S.card + Fintype.card J, ∃ F : Fin n → Finset E,
       (∀ i, G.IsCycle (F i)) ∧
       (∀ e, (Finset.univ.filter fun i => e ∈ F i).card = 2) ∧
@@ -62,7 +62,7 @@ theorem exists_replacement_individual_cycle_cover {m : ℕ} (C : Fin m → Finse
           (Finset.univ.filter fun j : J => e ∈ D j).card := by
       simp only [Finset.card_filter]
       exact Fintype.sum_sum_type (fun i : K ⊕ J => if e ∈ New i then (1 : ℕ) else 0)
-    rw [hSum, hreplace]
+    rw [hSum]
     have hImage : (Finset.univ.filter fun i : K => e ∈ C i.val).image Subtype.val =
         Sᶜ.filter fun i => e ∈ C i := by
       ext i
@@ -78,7 +78,6 @@ theorem exists_replacement_individual_cycle_cover {m : ℕ} (C : Fin m → Finse
     have hCard := Finset.card_image_of_injective
       (Finset.univ.filter fun i : K => e ∈ C i.val) Subtype.val_injective
     rw [hImage] at hCard
-    rw [← hCard]
     have hDis : Disjoint (Sᶜ.filter fun i => e ∈ C i) (S.filter fun i => e ∈ C i) := by
       apply Finset.disjoint_left.mpr
       intro i hi hj
@@ -89,8 +88,12 @@ theorem exists_replacement_individual_cycle_cover {m : ℕ} (C : Fin m → Finse
       simp only [Finset.mem_union, Finset.mem_filter, Finset.mem_compl,
         Finset.mem_univ, true_and]
       tauto
-    rw [← Finset.card_union_of_disjoint hDis, hUnion]
-    exact hcount e
+    have hOld : (Sᶜ.filter fun i => e ∈ C i).card +
+        (S.filter fun i => e ∈ C i).card =
+        (Finset.univ.filter fun i => e ∈ C i).card := by
+      rw [← Finset.card_union_of_disjoint hDis, hUnion]
+    have h := hbalance e
+    omega
   let labels : Fin (Fintype.card (K ⊕ J)) ≃ (K ⊕ J) := (Fintype.equivFin _).symm
   refine ⟨Fintype.card (K ⊕ J), ?_, fun i => New (labels i),
     fun i => hCycles (labels i), ?_, ?_⟩
@@ -105,6 +108,22 @@ theorem exists_replacement_individual_cycle_cover {m : ℕ} (C : Fin m → Finse
     exact hCount e
   · intro j
     exact ⟨labels.symm (Sum.inr j), by simp only [Equiv.apply_symm_apply]; rfl⟩
+
+omit [Fintype E] in
+/-- A multiplicity-preserving replacement in an existing exact double cover. -/
+theorem exists_replacement_individual_cycle_cover {m : ℕ} (C : Fin m → Finset E)
+    (hC : ∀ i, G.IsCycle (C i))
+    (hcount : ∀ e, (Finset.univ.filter fun i => e ∈ C i).card = 2)
+    (S : Finset (Fin m)) (D : J → Finset E) (hD : ∀ j, G.IsCycle (D j))
+    (hreplace : ∀ e, (Finset.univ.filter fun j => e ∈ D j).card =
+      (S.filter fun i => e ∈ C i).card) :
+    ∃ n ≤ m - S.card + Fintype.card J, ∃ F : Fin n → Finset E,
+      (∀ i, G.IsCycle (F i)) ∧
+      (∀ e, (Finset.univ.filter fun i => e ∈ F i).card = 2) ∧
+      ∀ j, ∃ i, F i = D j := by
+  apply exists_replacement_individual_cycle_double_cover C hC S D hD
+  intro e
+  rw [hcount, hreplace]
 
 omit [Fintype E] in
 /-- The size bound for the actual replacement cover. -/
