@@ -1,7 +1,7 @@
 import CycleDoubleCover.PaperDefinitions
 
 /-!
-Exact propositions for the three numbered claims whose proofs remain in progress.
+Exact propositions for three numbered claims tracked by the coverage inventory.
 These definitions do not assert the propositions or supply them as axioms.
 -/
 

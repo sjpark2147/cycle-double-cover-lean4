@@ -6,6 +6,8 @@ The main cycle double cover theorem (Theorem 1), the eight-layer bound (Theorem 
 
 The user resumed the full-paper formalization after the earlier pause. Work on the remaining numbered and unnumbered statements is active again. Unproved paper statements remain recorded in the coverage inventory; the project does not claim to have completed every paper statement. Conjectures are defined as propositions and are not asserted as axioms.
 
+Corollary 17's full half-vertex bound for individual cycles is checked as `Paper.corollary17` in `CycleDoubleCover/PentagonCounterexampleReduction.lean`. Theorems 24 and 27 and the remaining topological and matroid implications are still in progress.
+
 ## Setup
 
 With [elan](https://github.com/leanprover/elan) installed, run these commands from the repository root:

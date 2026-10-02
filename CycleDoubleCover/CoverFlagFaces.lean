@@ -70,6 +70,83 @@ theorem flag_drawing_complement_eq_regions (hloop : G.Loopless) (hcubic : G.Cubi
     obtain ⟨i, hi⟩ := Set.mem_iUnion.mp hx
     exact G.coverFlagFaceRegion_subset_drawing_complement hloop hcubic C hC hcount i hi
 
+/-- Each positive face region is exactly the actual component of the graph
+complement containing any of its points. -/
+theorem flag_drawing_component_eq_region (hloop : G.Loopless) (hcubic : G.Cubic)
+    {m : ℕ} (C : Fin m → Finset E) (hC : ∀ i, G.IsCycle (C i))
+    (hcount : ∀ e, (Finset.univ.filter fun i => e ∈ C i).card = 2)
+    (i : Fin m) {x : G.CoverFlagRealization C} (hx : x ∈ G.coverFlagFaceRegion C i) :
+    connectedComponentIn (G.cubicCoverFlagDrawing hloop hcubic C hC hcount).skeletonᶜ x =
+      G.coverFlagFaceRegion C i := by
+  classical
+  let A := G.coverFlagFaceRegion C i
+  let B := ⋃ j ≠ i, G.coverFlagFaceRegion C j
+  let F := (G.cubicCoverFlagDrawing hloop hcubic C hC hcount).skeletonᶜ
+  have hAF : A ⊆ F :=
+    G.coverFlagFaceRegion_subset_drawing_complement hloop hcubic C hC hcount i
+  have hAB : Disjoint A B := by
+    apply Set.disjoint_left.mpr
+    intro y hyA hyB
+    obtain ⟨j, hji, hyj⟩ := Set.mem_iUnion₂.mp hyB
+    exact hji (G.positive_face_coordinate_unique C y.property j i hyj hyA)
+  have hFcover : F ⊆ A ∪ B := by
+    intro y hy
+    have hy' : y ∈ (G.cubicCoverFlagDrawing hloop hcubic C hC hcount).skeletonᶜ := hy
+    rw [G.flag_drawing_complement_eq_regions hloop hcubic C hC hcount] at hy'
+    obtain ⟨j, hyj⟩ := Set.mem_iUnion.mp hy'
+    by_cases hji : j = i
+    · subst j; exact Or.inl hyj
+    · exact Or.inr (Set.mem_iUnion₂.mpr ⟨j, hji, hyj⟩)
+  apply Set.Subset.antisymm
+  · exact isPreconnected_connectedComponentIn.subset_left_of_subset_union
+      (G.coverFlagFaceRegion_isOpen C i)
+      (isOpen_iUnion fun j => isOpen_iUnion fun _ => G.coverFlagFaceRegion_isOpen C j)
+      hAB ((connectedComponentIn_subset F x).trans hFcover)
+      ⟨x, mem_connectedComponentIn (hAF hx), hx⟩
+  · have hpre := (G.coverFlagFaceRegion_isConnected C i (hC i).1).isPreconnected
+    exact hpre.subset_connectedComponentIn hx hAF
+
+/-- Indexed cover members give genuine complement faces, including
+distinct faces for repeated edge sets. -/
+noncomputable def coverFlagDrawingFace (hloop : G.Loopless) (hcubic : G.Cubic)
+    {m : ℕ} (C : Fin m → Finset E) (hC : ∀ i, G.IsCycle (C i))
+    (hcount : ∀ e, (Finset.univ.filter fun i => e ∈ C i).card = 2) (i : Fin m) :
+    (G.cubicCoverFlagDrawing hloop hcubic C hC hcount).Face := by
+  refine ⟨G.coverFlagFaceRegion C i, ?_⟩
+  obtain ⟨x, hx⟩ := (G.coverFlagFaceRegion_isConnected C i (hC i).1).nonempty
+  exact ⟨x,
+    G.coverFlagFaceRegion_subset_drawing_complement hloop hcubic C hC hcount i hx,
+    (G.flag_drawing_component_eq_region hloop hcubic C hC hcount i hx).symm⟩
+
+theorem coverFlagDrawingFace_bijective (hloop : G.Loopless) (hcubic : G.Cubic)
+    {m : ℕ} (C : Fin m → Finset E) (hC : ∀ i, G.IsCycle (C i))
+    (hcount : ∀ e, (Finset.univ.filter fun i => e ∈ C i).card = 2) :
+    Function.Bijective (G.coverFlagDrawingFace hloop hcubic C hC hcount) := by
+  constructor
+  · intro i j hij
+    have hregions : G.coverFlagFaceRegion C i = G.coverFlagFaceRegion C j :=
+      congrArg Subtype.val hij
+    obtain ⟨x, hxi⟩ := (G.coverFlagFaceRegion_isConnected C i (hC i).1).nonempty
+    have hxj : x ∈ G.coverFlagFaceRegion C j := by rw [← hregions]; exact hxi
+    exact G.positive_face_coordinate_unique C x.property i j hxi hxj
+  · intro F
+    obtain ⟨x, hx, hF⟩ := F.property
+    rw [G.flag_drawing_complement_eq_regions hloop hcubic C hC hcount] at hx
+    obtain ⟨i, hxi⟩ := Set.mem_iUnion.mp hx
+    refine ⟨i, Subtype.ext ?_⟩
+    change G.coverFlagFaceRegion C i = F.val
+    rw [hF, G.flag_drawing_component_eq_region hloop hcubic C hC hcount i hxi]
+
+/-- The actual face set is in bijection with the indexed cover, retaining
+the distinction between repeated cover members. -/
+noncomputable def coverFlagDrawingFaceEquiv (hloop : G.Loopless) (hcubic : G.Cubic)
+    {m : ℕ} (C : Fin m → Finset E) (hC : ∀ i, G.IsCycle (C i))
+    (hcount : ∀ e, (Finset.univ.filter fun i => e ∈ C i).card = 2) :
+    Fin m ≃ (G.cubicCoverFlagDrawing hloop hcubic C hC hcount).Face :=
+  Equiv.ofBijective _ (G.coverFlagDrawingFace_bijective hloop hcubic C hC hcount)
+
 #print axioms flag_drawing_complement_eq_regions
+#print axioms flag_drawing_component_eq_region
+#print axioms coverFlagDrawingFace_bijective
 
 end CycleDoubleCover.MultiGraph
