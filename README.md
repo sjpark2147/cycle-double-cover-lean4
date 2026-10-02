@@ -6,9 +6,9 @@ The main cycle double cover theorem (Theorem 1), the eight-layer bound (Theorem 
 
 The user resumed the full-paper formalization after the earlier pause. Work on the remaining numbered and unnumbered statements is active again. Unproved paper statements remain recorded in the coverage inventory; the project does not claim to have completed every paper statement. Conjectures are defined as propositions and are not asserted as axioms.
 
-Corollary 17's full half-vertex bound for individual cycles is checked as `Paper.corollary17` in `CycleDoubleCover/PentagonCounterexampleReduction.lean`. Theorems 24 and 27 and the remaining topological and matroid implications are still in progress.
+Corollary 17's full half-vertex bound for individual cycles is checked as `Paper.corollary17` in `CycleDoubleCover/PentagonCounterexampleReduction.lean`. Theorems 24 and 27 and the general matroid implications are still in progress.
 
-The latest checkpoint adds actual plane charts at flag edges, graph-edge centers and cubic graph vertices, actual quotient-cycle lifting and cancellation phase selection, and rank-five cover and triad structure results. Face-center charts, disk attachments, general six-flow existence and the full matroid theorem remain pending. The default build checks 4,081 public theorems and 670 definitions, allowing only the three standard logical axioms.
+The cubic strong-embedding implication (U04) is checked as `Paper.cycleDoubleCoverStatement_implies_cubic_strongEmbedding` in `CycleDoubleCover/CubicStrongEmbedding.lean`: the actual surface has plane charts at every point and embedded closed-disk face attachments. The original Theorem 27 hypotheses now give a CDC for every matroid of rank at most five. A supplied nowhere-zero six-flow constructs an eleven-layer six-cover for loopless graphs; the ten-layer theorem, six-flow existence and general higher-rank matroid results remain pending. The default build checks 4,323 public theorems and 702 definitions, allowing only the three standard logical axioms.
 
 ## Setup
 
