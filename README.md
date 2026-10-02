@@ -8,6 +8,8 @@ The user resumed the full-paper formalization after the earlier pause. Work on t
 
 Corollary 17's full half-vertex bound for individual cycles is checked as `Paper.corollary17` in `CycleDoubleCover/PentagonCounterexampleReduction.lean`. Theorems 24 and 27 and the remaining topological and matroid implications are still in progress.
 
+The latest checkpoint adds actual plane charts at flag edges, graph-edge centers and cubic graph vertices, actual quotient-cycle lifting and cancellation phase selection, and rank-five cover and triad structure results. Face-center charts, disk attachments, general six-flow existence and the full matroid theorem remain pending. The default build checks 4,081 public theorems and 670 definitions, allowing only the three standard logical axioms.
+
 ## Setup
 
 With [elan](https://github.com/leanprover/elan) installed, run these commands from the repository root:
