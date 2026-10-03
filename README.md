@@ -1,6 +1,6 @@
 # CycleDoubleCover
 
-A Lean 4 formalization of the definitions and theorems in Sang-il Oum's [A proof of the cycle double cover conjecture by OpenAI: An exposition](https://arxiv.org/abs/2607.16356v3), using mathlib. The reference PDF can be kept locally as the Git-ignored `paper.pdf`. [Source and licensing notes](docs/SourcePaper.md) record its version and distribution license.
+A Lean 4 formalization of the definitions and theorems in Sang-il Oum's [A proof of the cycle double cover conjecture by OpenAI: An exposition](https://arxiv.org/abs/2607.16356v3), using mathlib. [Source and licensing notes](docs/SourcePaper.md) record the paper's version and distribution license.
 
 ## Proof status
 
