@@ -16,6 +16,48 @@ An optimal corrected ternary profile has an actual forest outside its correction
 
 The verified default build completes 2,838 jobs and audits 4,948 project theorem declarations and 753 definitions, including generated auxiliary declarations. These counts do not measure paper coverage. The library import closure contains 344 source modules, plus the separate Audit target. Two unfinished source drafts are archived under `docs/drafts/` and excluded from the default build and audit.
 
+## AI run settings and budget
+
+The formalization was developed with **GPT-6.1 Sol at Ultra reasoning effort** in Codex Desktop. The user confirmed this setting, and the local session logs record `model: gpt-6.1-sol` and `effort: ultra` for the main formalization runs. They also record `xhigh` during initialization and intermediate repository work. The current global default is not used to reconstruct these historical settings.
+
+| Setting | Recorded value |
+| --- | --- |
+| Client | Codex Desktop; CLI runtime `0.159.2`, Windows/PowerShell |
+| Model | `gpt-6.1-sol`; an exact underlying model snapshot was not recorded |
+| Main reasoning effort | `ultra`, the Codex application label; no equivalence to an API effort or Pro mode is assumed |
+| Service tier | `default` in the recorded thread settings |
+| Task agents | One root agent and five task agents created across the run: `linear_algebra`, `binary_algebra`, `paper_audit`, `square_structure`, `sixflow_structure`; all used `gpt-6.1-sol`, primarily `ultra` |
+| Numeric goal token cap | None configured; the logs report `Token budget: none` |
+| Proof environment | Lean `v4.35.0-rc3`, mathlib pinned to `v4.35.0-rc3`; dependency commits are in `lake-manifest.json` |
+| Monetary cost and sampling settings | Actual account charge unknown; Standard API token estimate below. Temperature, `top_p` and seed were not established |
+
+The recorded Codex **goal usage counters** were 5,298,000 tokens for the initial goal and 14,709,007 for the resumed full-paper goal at pause: **20,007,007 tokens combined**. Their recorded goal-time counters total 45,336 seconds (12 h 35 min 36 s). These counters cover two goal scopes and are separate from the model-request usage below; their accounting formula was not independently established. They are not a monetary budget or a billing statement.
+
+The following aggregate sums `token_usage_record.usage` once per response ID across the root and five task-agent session logs, through **2026-10-03 03:11:55 KST**, when the resumed goal was paused. Separate automatic approval-review logs, unrelated chats and later repository maintenance are excluded. The 4,332 recorded responses include repeated context processing and cached prefixes.
+
+| Model-request usage | Recorded tokens |
+| --- | ---: |
+| Input, including cached input | 545,795,988 |
+| Cached input, already included above | 528,505,088 |
+| Uncached input | 17,290,900 |
+| Output, including reasoning output | 3,260,717 |
+| Reasoning output, already included above | 1,206,263 |
+| Total input + output | 549,056,705 |
+
+These are local execution records, not an independently verified provider billing export. Cached input and reasoning output must not be added again to the total. See the [aggregate run metadata](docs/RunMetadata.json) for the scope, settings timeline, per-agent counts and accounting method. The raw conversation logs and reference PDF are not published. OpenAI's [configuration reference](https://learn.chatgpt.com/docs/config-file/config-reference) explains model and effort settings; its [usage documentation](https://developers.openai.com/api/docs/guides/agents-api/observability#understand-token-usage) explains token categories and the limits of usage reports.
+
+At GPT-6.1 Sol's published **Standard API token rates**, checked on 2026-10-03, this recorded usage converts to an estimated **USD $120.04**. This is an API-rate comparison, not the actual Codex account charge. [Official model pricing](https://developers.openai.com/api/docs/models/gpt-6.1-sol).
+
+| Token category | USD per million tokens | Estimated USD |
+| --- | ---: | ---: |
+| Uncached input | $2.00 | $34.58 |
+| Cached input | $0.10 | $52.85 |
+| Output, including reasoning | $10.00 | $32.61 |
+| Cache writes, reported as 0 tokens | $2.50 | $0.00 |
+| **Total** | | **$120.04** |
+
+The unrounded calculation is `(17,290,900 × 2 + 528,505,088 × 0.10 + 3,260,717 × 10) / 1,000,000 = $120.0394788`. The largest recorded request had 234,954 input tokens, below the 272,000-token long-context pricing threshold. The estimate assumes the logged zero cache-write count is complete; it does not estimate missing cache-write charges. Separate approval-review calls, tool fees, compute, taxes, regional premiums, subscription pricing and discounts are excluded. No monetary equivalence between the Codex Ultra label and API Pro mode is assumed.
+
 ## Setup
 
 With [elan](https://github.com/leanprover/elan) installed, run these commands from the repository root:

@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "purpose": "Aggregate execution metadata for the paused formalization; no raw conversation or PDF content.",
+  "accounting_cutoff_kst": "2026-10-03T03:11:55.242000+09:00",
+  "source": "Local Codex session turn_context, thread_settings_applied, token_usage_record and goal status records.",
+  "model": "gpt-6.1-sol",
+  "primary_reasoning_effort": "ultra",
+  "configured_numeric_goal_token_cap": null,
+  "goal_usage": {
+    "initial_goal_tokens_used": 5298000,
+    "resumed_goal_tokens_used_at_pause": 14709007,
+    "sum_of_goal_tokens_used": 20007007,
+    "initial_goal_time_used_seconds": 13505,
+    "resumed_goal_time_used_seconds": 31831,
+    "sum_of_goal_time_used_seconds": 45336
+  },
+  "model_usage_accounting": {
+    "scope": "Root plus all five spawned task-agent session logs; separate automatic approval-review logs, unrelated threads and post-pause repository maintenance are excluded.",
+    "method": "Sum each token_usage_record.usage once per response_id at or before the cutoff, deduplicating across selected session logs.",
+    "recorded_response_count": 4332,
+    "maximum_recorded_request_input_tokens": 234954,
+    "requests_with_more_than_272000_input_tokens": 0,
+    "totals": {
+      "input_tokens": 545795988,
+      "cached_input_tokens": 528505088,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 3260717,
+      "reasoning_output_tokens": 1206263,
+      "total_tokens": 549056705,
+      "uncached_input_tokens": 17290900
+    },
+    "cached_input_is_subset_of_input": true,
+    "reasoning_output_is_subset_of_output": true,
+    "is_billing_statement": false
+  },
+  "agents": [
+    {
+      "agent": "binary_algebra",
+      "recorded_responses": 260,
+      "settings_changes": [
+        {
+          "time_kst": "2026-10-02T11:20:16.111000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "xhigh"
+        },
+        {
+          "time_kst": "2026-10-02T11:20:16.112000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "ultra"
+        }
+      ],
+      "recorded_service_tiers": [
+        "default"
+      ],
+      "token_usage": {
+        "input_tokens": 31534372,
+        "cached_input_tokens": 30333824,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 183812,
+        "reasoning_output_tokens": 75512,
+        "total_tokens": 31718184
+      }
+    },
+    {
+      "agent": "linear_algebra",
+      "recorded_responses": 1132,
+      "settings_changes": [
+        {
+          "time_kst": "2026-10-02T11:20:03.637000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "xhigh"
+        },
+        {
+          "time_kst": "2026-10-02T11:20:03.638000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "ultra"
+        }
+      ],
+      "recorded_service_tiers": [
+        "default"
+      ],
+      "token_usage": {
+        "input_tokens": 141986850,
+        "cached_input_tokens": 137562496,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 872814,
+        "reasoning_output_tokens": 307761,
+        "total_tokens": 142859664
+      }
+    },
+    {
+      "agent": "paper_audit",
+      "recorded_responses": 417,
+      "settings_changes": [
+        {
+          "time_kst": "2026-10-02T11:20:26.682000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "xhigh"
+        },
+        {
+          "time_kst": "2026-10-02T11:20:26.682000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "ultra"
+        }
+      ],
+      "recorded_service_tiers": [
+        "default"
+      ],
+      "token_usage": {
+        "input_tokens": 55946922,
+        "cached_input_tokens": 54335360,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 313721,
+        "reasoning_output_tokens": 108485,
+        "total_tokens": 56260643
+      }
+    },
+    {
+      "agent": "root",
+      "recorded_responses": 1279,
+      "settings_changes": [
+        {
+          "time_kst": "2026-10-02T11:08:04.772000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "xhigh"
+        },
+        {
+          "time_kst": "2026-10-02T11:18:21.219000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "ultra"
+        },
+        {
+          "time_kst": "2026-10-02T15:06:12.926000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "xhigh"
+        },
+        {
+          "time_kst": "2026-10-02T18:19:17.199000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "ultra"
+        }
+      ],
+      "recorded_service_tiers": [
+        "default"
+      ],
+      "token_usage": {
+        "input_tokens": 162548046,
+        "cached_input_tokens": 157942144,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 836435,
+        "reasoning_output_tokens": 263160,
+        "total_tokens": 163384481
+      }
+    },
+    {
+      "agent": "sixflow_structure",
+      "recorded_responses": 593,
+      "settings_changes": [
+        {
+          "time_kst": "2026-10-02T18:57:37.537000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "ultra"
+        }
+      ],
+      "recorded_service_tiers": [
+        "default"
+      ],
+      "token_usage": {
+        "input_tokens": 73024762,
+        "cached_input_tokens": 70453632,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 529050,
+        "reasoning_output_tokens": 216503,
+        "total_tokens": 73553812
+      }
+    },
+    {
+      "agent": "square_structure",
+      "recorded_responses": 651,
+      "settings_changes": [
+        {
+          "time_kst": "2026-10-02T18:57:27.240000+09:00",
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "ultra"
+        }
+      ],
+      "recorded_service_tiers": [
+        "default"
+      ],
+      "token_usage": {
+        "input_tokens": 80755036,
+        "cached_input_tokens": 77877632,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 524885,
+        "reasoning_output_tokens": 234842,
+        "total_tokens": 81279921
+      }
+    }
+  ],
+  "limitations": [
+    "Goal usage counters and model token usage are separate metrics; the goal-counter accounting formula was not independently established.",
+    "Input totals include repeated context and cached prefixes across model requests.",
+    "Local records are not an independently verified provider billing export.",
+    "No task-specific monetary cost, temperature, top_p, seed or fixed underlying model snapshot was established.",
+    "Ultra is the recorded Codex application effort label; no equivalence to a public API effort or pro mode is asserted."
+  ],
+  "standard_api_token_cost_estimate": {
+    "model": "gpt-6.1-sol",
+    "rates_checked_date": "2026-10-03",
+    "pricing_source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+    "currency": "USD",
+    "processing_tier_assumption": "Standard",
+    "rate_unit_tokens": 1000000,
+    "rates_usd_per_million_tokens": {
+      "uncached_input_tokens": "2.00",
+      "cached_input_tokens": "0.10",
+      "cache_write_input_tokens": "2.50",
+      "output_tokens": "10.00"
+    },
+    "component_costs_usd_unrounded": {
+      "uncached_input_tokens": "34.5818",
+      "cached_input_tokens": "52.8505088",
+      "cache_write_input_tokens": "0.00",
+      "output_tokens": "32.60717"
+    },
+    "estimated_total_usd_unrounded": "120.0394788",
+    "estimated_total_usd_rounded": "120.04",
+    "is_actual_account_charge": false,
+    "assumptions_and_exclusions": [
+      "Uses the selected local response usage records, including their reported cached-input counts.",
+      "The selected requests all have at most 272000 recorded input tokens; no long-context multiplier is applied.",
+      "Cache-write tokens are reported as zero in these records; missing or unreported cache-write charges are not estimated.",
+      "Separate approval-review model calls, tool fees, compute, taxes, regional premiums, subscription pricing and discounts are excluded.",
+      "No monetary equivalence between Codex Ultra and API Pro mode is asserted."
+    ]
+  }
+}
