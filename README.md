@@ -35,5 +35,6 @@ The Lean version is pinned in `lean-toolchain`, and dependency revisions are rec
 - `docs/PaperCoverage.md`: complete scope and proof status.
 - `docs/ResumeCheckpoint.md`: paused state and remaining proof obligations.
 - `docs/SourcePaper.md`: source citation, PDF license and local-copy policy.
+- `docs/HistoryCleanup.md`: completed Git history cleanup and remaining GitHub references.
 - `docs/drafts/`: preserved, unverified source drafts outside the library.
 - `lakefile.toml`: package and dependency configuration.
