@@ -13,12 +13,18 @@ The user authorized removal of the reference PDF from Git history. The mathemati
 
 The published commit IDs have changed. Existing clones must be replaced or carefully cleaned before further pushes; merging the old history back would restore the PDF's history.
 
-## Remaining GitHub-side scope
+## Previous repository's PR retention
 
-Closed, unmerged [PR #1](https://github.com/sjpark2147/cdc-fmlz/pull/1) retains its previous head in `refs/pull/1/head`, whose history contains the PDF. GitHub rejected an attempted deletion with `deny updating a hidden ref`. Repository administrators cannot remove this internal reference through a normal Git push. The release has no separately uploaded assets, and the repository reported no forks at inspection time.
+Before the previous repository was deleted, closed, unmerged PR #1 retained its previous head in `refs/pull/1/head`, whose history contained the PDF. GitHub rejected an attempted deletion with `deny updating a hidden ref`. Repository administrators cannot remove this internal reference through a normal Git push. The previous release had no separately uploaded assets, and that repository reported no forks at inspection time.
 
-To test whether the PR could be updated, its original source branch was temporarily recreated at the rewritten, PDF-free PR head. GitHub rejected reopening the PR with HTTP 422: `state cannot be changed`, because the branch had been force-pushed or recreated. The temporary branch was then deleted with an explicit expected-commit lease. The old PDF-containing branch history was not restored, and the PR remains closed at its old head.
+To test whether the PR could be updated, its original source branch was temporarily recreated at the rewritten, PDF-free PR head. GitHub rejected reopening the PR with HTTP 422: `state cannot be changed`, because the branch had been force-pushed or recreated. The temporary branch was then deleted with an explicit expected-commit lease. The old PDF-containing branch history was not restored, and the PR stayed closed at its old head until repository deletion.
 
-GitHub-side removal of the PR reference and cached old objects is still pending. GitHub's [history-removal guidance](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository) describes these residual references and limits its sensitive-data removal assistance; a copyright-related request is not guaranteed to qualify. A support request draft and the exact affected identifiers are prepared locally in `.lake/history-cleanup/GitHubSupportRequest.md`; no request has been sent.
+GitHub's [history-removal guidance](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository) describes residual references and limits its sensitive-data removal assistance; a copyright-related request is not guaranteed to qualify. A support request draft and the exact affected identifiers were prepared locally in `.lake/history-cleanup/GitHubSupportRequest.md`; no request was sent.
 
-This report confirms cleanup of the controllable Git histories. It does not claim erasure of GitHub's retained PR objects, caches or copies held by other people.
+## Migration to a fresh repository
+
+On 2026-10-03, the user deleted the previous repository and supplied the empty [cycle-double-cover-lean4](https://github.com/sjpark2147/cycle-double-cover-lean4) repository as the new remote. The previous repository API returned 404, while the new repository had a distinct repository ID and no Git refs. The local `origin` is connected to `https://github.com/sjpark2147/cycle-double-cover-lean4.git`.
+
+Only the cleaned `main` branch and annotated `v4.35.0-rc3` tag are selected for publication. Previous PR refs and local Codex snapshot refs are not included in the push. A complete Git bundle containing the cleaned branch and tag was independently cloned and checked: neither the PDF path history nor the old PDF blob was present. Lean sources, dependency pins and the paused proof status remain unchanged.
+
+This report confirms cleanup of the controllable Git histories and publication to a fresh repository. It does not claim erasure of GitHub's internal retained objects, caches or copies held by other people.
