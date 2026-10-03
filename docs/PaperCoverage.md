@@ -1,5 +1,7 @@
 # Coverage audit of `paper.pdf`
 
+The reference is Sang-il Oum's [arXiv:2607.16356v3](https://arxiv.org/abs/2607.16356v3). `paper.pdf` denotes a local reference copy, excluded from Git tracking. [SourcePaper.md](SourcePaper.md) records the PDF's license and the earlier historical copies.
+
 ## 현재 진행 상황
 
 **현재 작업 상태: 일시정지.** 2026-10-03 사용자의 중단 요청에 따라 기본 빌드와 공리 검사를 다시 통과한 지점에서 멈췄습니다. 전체 목표는 미완료 상태로 유지합니다. 중단 직전 로그는 `.lake/pause-checkpoint-build.log`이며, 재개할 과제와 통합에서 제외한 두 초안은 `docs/ResumeCheckpoint.md`에 기록했습니다.
@@ -26,7 +28,7 @@
 
 추가 축약까지 통합 검증했습니다. 실제 square·pentagon의 흐름 복구와 최소성에서 `SixFlowPentagonReduction.lean`은 six-flow 문제를 **원래 simple·cubic·3edgeconn·girth ≥ 6·nontrivial cut ≥ 4** 경우로 줄입니다. `BalancedSixLayerSelection.lean`, `FanSquareLift.lean`과 정점 상한을 보존하는 `ExactCoverBoundedReduction.lean`은 실제 square cover 복구를 완성하며, full ten-layer six-cover 목표는 **같은 cut 조건의 girth ≥ 5, 정점 수 ≥ 12** 경우로 줄었습니다. `FanOutsideForestCounts.lean`은 실제 correction 크기와 outside component 수의 정확한 관계를, `FanAlternatingExchanges.lean`과 `FanMinimumCorrection.lean`은 실제 correction toggle 및 lexicographic 최적화의 strict 상쇄 상한을 증명합니다. `BinaryTriangleCoindependence.lean`은 원래 ground에서 binary circuit/cocircuit 교집합의 짝수성과 irreducible triangle의 coindependence를 증명합니다. ΔY regularity·rank·no-coloop 보존 및 cover lift를 사용해 `FanoFreeDeltaYReduction.lean`은 실제 regular 최소 반례가 triangle-free임을 도출합니다. General Fano-free/regular 구조·cover 존재와 graph의 두 핵심 존재 증명은 여전히 미완료입니다.
 
-This inventory records the requested scope, not a claim of completion. The source is the local ten-page `paper.pdf`, with extracted text at `.lake/paper/paper.txt`. No internet sources or related formalization repositories were consulted in this audit. The installed mathlib source was inspected only for library support.
+This inventory records the requested scope, not a claim of completion. The source is the local ten-page `paper.pdf`, with extracted text at `.lake/paper/paper.txt`. No external mathematical sources or related formalization repositories were consulted for this formalization audit. The installed mathlib source was inspected only for library support. A later licensing check consulted the source paper's official arXiv record and license; it did not add mathematical proof material.
 
 A bounded fidelity review inspected Theorem 1's graph definitions and the reduction, tree-packing, consistency, flow-lifting and strict-cycle decomposition chain. It also ran finite models of local binary identities, small multigraph bridge/cycle definitions and graph-operation lifting. No defect was found in the examined chain. These were inline experiments, without a committed reproduction script; they do not constitute an independent reproof of every mathematical dependency or a resolution of the external CDC problem.
 

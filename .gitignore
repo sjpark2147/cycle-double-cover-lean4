@@ -1,2 +1,5 @@
 # cache and other artifacts produced by Lean's Lake build tool
 .lake/
+
+# Local reference copy; redistribution permission is not established.
+/paper.pdf

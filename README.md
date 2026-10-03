@@ -1,6 +1,6 @@
 # CycleDoubleCover
 
-A Lean 4 formalization of the definitions and theorems in `paper.pdf`, using mathlib.
+A Lean 4 formalization of the definitions and theorems in Sang-il Oum's [A proof of the cycle double cover conjecture by OpenAI: An exposition](https://arxiv.org/abs/2607.16356v3), using mathlib. The reference PDF can be kept locally as `paper.pdf`; it is excluded from Git tracking. [Source and licensing notes](docs/SourcePaper.md) record the exact version and its distribution license.
 
 The main cycle double cover theorem (Theorem 1), the eight-layer bound (Theorem 18), and the binary-flow seven-member fourfold cover (Theorem 23) have Lean-checked declarations for the project's finite multigraph definitions, including loops and disconnected graphs. The main CDC declarations are `MultiGraph.Bridgeless.has_cycle_double_cover` in `CycleDoubleCover/MainReduction.lean` and the universally quantified `Paper.cycleDoubleCoverStatement`. [The coverage inventory](docs/PaperCoverage.md) records exact proof status, authorized corrections and the distinction between kernel checking and independent mathematical review.
 
@@ -34,5 +34,6 @@ The Lean version is pinned in `lean-toolchain`, and dependency revisions are rec
 - `CycleDoubleCover/Audit.lean`: proof dependency audit.
 - `docs/PaperCoverage.md`: complete scope and proof status.
 - `docs/ResumeCheckpoint.md`: paused state and remaining proof obligations.
+- `docs/SourcePaper.md`: source citation, PDF license and local-copy policy.
 - `docs/drafts/`: preserved, unverified source drafts outside the library.
 - `lakefile.toml`: package and dependency configuration.

@@ -9,6 +9,7 @@
 - 번호 있는 증명 대상 21개 중 19개 검증. 이 수에는 conjecture가 포함되지 않습니다. 논문 정의 45개와 conjecture 명제 7개 구현. **Conjecture의 원래 전체 명제를 증명한 수는 0/7개**이며, 일부 동치·함의와 cubic strong embedding 특수 경우만 증명했습니다. 승인된 loop 관련 최소 수정과 원문 일치 검토의 한계는 `PaperCoverage.md`에 기록되어 있습니다.
 - library import closure 344개 source module와 별도 Audit target이 검증 범위입니다.
 - 이 커밋 지점에는 기본 빌드로 검증한 소스, 현재 상태 문서, 기본 빌드에서 제외한 두 초안의 보관본을 포함합니다. 빌드 로그는 `.gitignore`에 따라 로컬 `.lake/`에만 남으며, 클론 후 기본 `lake build`로 검사 결과를 재현할 수 있습니다.
+- 원문 PDF는 현재 Git tree에서 제외하고 로컬 `paper.pdf`만 유지합니다. 재개에 필요한 정확한 논문 버전과 공식 링크는 [SourcePaper.md](SourcePaper.md)에 기록했습니다. 과거에 push된 PDF의 이력은 별도로 남아 있습니다.
 
 ## 남은 본문 증명
 
