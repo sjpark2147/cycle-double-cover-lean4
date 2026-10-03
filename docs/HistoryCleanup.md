@@ -1,30 +1,30 @@
 # PDF history cleanup — 2026-10-03
 
-The user authorized removal of the reference PDF from Git history. The mathematical formalization remains paused. The ignored local `paper.pdf` working copy remains available for reference; the file is not part of the tracked project or cleaned Git history.
+The user authorized removal of the reference PDF from Git history. The ignored local `paper.pdf` remains available for reference. The mathematical formalization is paused.
 
 ## Completed and verified
 
 - Rewrote the published `main` branch and annotated `v4.35.0-rc3` tag with `git-filter-repo`, removing `paper.pdf` throughout their histories.
-- Compared the non-PDF file tree of every one of the separate remote clone's 12 commits and the working repository's 10 commits against its corresponding cleaned commit. All retained file paths, modes and blob identities matched. The latest tracked tree was unchanged by the rewrite.
+- Compared the non-PDF file trees of 12 commits in the separate remote clone and 10 in the working repository with their cleaned counterparts. All retained paths, modes and blob identities matched; the latest tracked tree was unchanged.
 - Checked six local Codex snapshot tree refs, removing the PDF from the three that contained it while preserving all other snapshot entries.
 - Expired local reflogs and pruned obsolete Git objects. Both reachability checks and direct object lookup confirmed that the old PDF blob was absent from the cleaned local repositories.
-- Updated only the intended remote branch and tag with an atomic push and explicit expected old values. Other concurrent remote updates would have caused the push to fail.
+- Updated the intended remote branch and tag with an atomic push guarded by their expected old values, so a concurrent change to either ref would have rejected the push.
 - Kept `/paper.pdf` in `.gitignore` and retained the official source and license links. No Lean source or proof statement was edited for this cleanup.
 
-The published commit IDs have changed. Existing clones must be replaced or carefully cleaned before further pushes; merging the old history back would restore the PDF's history.
+The rewrite changed commit IDs. Replace or clean existing clones before pushing again; merging old history would restore the PDF's history.
 
 ## Previous repository's PR retention
 
-Before the previous repository was deleted, closed, unmerged PR #1 retained its previous head in `refs/pull/1/head`, whose history contained the PDF. GitHub rejected an attempted deletion with `deny updating a hidden ref`. Repository administrators cannot remove this internal reference through a normal Git push. The previous release had no separately uploaded assets, and that repository reported no forks at inspection time.
+Closed, unmerged PR #1 retained the PDF-containing history in `refs/pull/1/head` until the previous repository was deleted. GitHub rejected deletion with `deny updating a hidden ref`; even a repository administrator cannot remove this reference through a normal Git push. At inspection time, the release had no separately uploaded assets and the repository reported no forks.
 
-To test whether the PR could be updated, its original source branch was temporarily recreated at the rewritten, PDF-free PR head. GitHub rejected reopening the PR with HTTP 422: `state cannot be changed`, because the branch had been force-pushed or recreated. The temporary branch was then deleted with an explicit expected-commit lease. The old PDF-containing branch history was not restored, and the PR stayed closed at its old head until repository deletion.
+The original source branch was temporarily recreated at the rewritten, PDF-free PR head to test reopening. GitHub returned HTTP 422, `state cannot be changed`, because the branch had been force-pushed or recreated. The temporary branch was deleted with an expected-commit lease. This test used cleaned history throughout; the PR stayed closed at its old head until repository deletion.
 
-GitHub's [history-removal guidance](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository) describes residual references and limits its sensitive-data removal assistance; a copyright-related request is not guaranteed to qualify. A support request draft and the exact affected identifiers were prepared locally in `.lake/history-cleanup/GitHubSupportRequest.md`; no request was sent.
+GitHub's [history-removal guidance](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository) describes residual references and the limits of sensitive-data removal assistance. Whether a copyright-related request qualifies was not established. A draft with the affected identifiers remains local at `.lake/history-cleanup/GitHubSupportRequest.md`; it was never sent.
 
 ## Migration to a fresh repository
 
-On 2026-10-03, the user deleted the previous repository and supplied the empty [cycle-double-cover-lean4](https://github.com/sjpark2147/cycle-double-cover-lean4) repository as the new remote. The previous repository API returned 404, while the new repository had a distinct repository ID and no Git refs. The local `origin` is connected to `https://github.com/sjpark2147/cycle-double-cover-lean4.git`.
+On 2026-10-03, the user deleted the previous repository and supplied the empty [cycle-double-cover-lean4](https://github.com/sjpark2147/cycle-double-cover-lean4) as the new remote. The previous repository API returned 404. The new repository had a distinct ID and no Git refs. Local `origin` now points to `https://github.com/sjpark2147/cycle-double-cover-lean4.git`.
 
-Only the cleaned `main` branch and annotated `v4.35.0-rc3` tag are selected for publication. Previous PR refs and local Codex snapshot refs are not included in the push. A complete Git bundle containing the cleaned branch and tag was independently cloned and checked: neither the PDF path history nor the old PDF blob was present. Lean sources, dependency pins and the paused proof status remain unchanged.
+The push published the cleaned `main` branch and annotated `v4.35.0-rc3` tag, excluding previous PR refs and local Codex snapshot refs. An independent clone of a Git bundle containing the cleaned branch and tag had no PDF path history or old PDF blob. The migration preserved Lean sources, dependency pins and the paused proof status.
 
-This report confirms cleanup of the controllable Git histories and publication to a fresh repository. It does not claim erasure of GitHub's internal retained objects, caches or copies held by other people.
+Erasure of GitHub's internal retained objects, caches or copies held by other people has not been verified.
